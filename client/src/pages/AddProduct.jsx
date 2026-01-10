@@ -3,6 +3,8 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import AdminSidebar from '../components/AdminSidebar';
+import SellerSidebar from '../components/SellerSidebar';
+import Navbar from '../components/Navbar';
 
 const AddProduct = () => {
   const [formData, setFormData] = useState({
@@ -36,9 +38,12 @@ const AddProduct = () => {
   };
 
   return (
-    <div className="flex min-h-screen bg-slate-900 text-slate-100">
-      {/* Sidebar */}
-      <AdminSidebar />
+    <div className="min-h-screen bg-slate-900 text-slate-100">
+      <Navbar />
+      
+      <div className="flex">
+        {/* Sidebar */}
+        <SellerSidebar />
 
       {/* Main Content Area */}
       <div className="flex-1 p-8">
@@ -127,6 +132,7 @@ const AddProduct = () => {
             </button>
           </form>
         </div>
+      </div>
       </div>
     </div>
   );

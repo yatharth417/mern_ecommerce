@@ -53,7 +53,7 @@ const Navbar = () => {
                         <>
                             {/* show seller dashboard if user is company/admin */}
                             {user.role === 'admin'  && (
-                                <Link to="/admin/orderlist" className="text-sm font-medium text-emerald-400 hover:text-emerald-300">
+                                <Link to="/dashboard/my-products" className="text-sm font-medium text-emerald-400 hover:text-emerald-300">
                                     Seller Dashboard
                                 </Link>
                             )}

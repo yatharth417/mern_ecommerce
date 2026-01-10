@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Navbar from '../components/Navbar';
-import toast from 'react-hot-toast'; // <--- Import Toast
+import toast from 'react-hot-toast'; 
+import { Link } from 'react-router-dom';
 
 const OrderList = () => {
   const [orders, setOrders] = useState([]);
@@ -45,13 +46,29 @@ const OrderList = () => {
       <Navbar />
       
       <div className="mx-auto max-w-7xl px-4 py-10">
-        <h1 className="mb-8 text-3xl font-bold text-white">Seller Dashboard (All Orders)</h1>
+        
+        {/* HEADER SECTION: Title + Add Product Button */}
+        <div className="flex flex-col md:flex-row justify-between items-center mb-8">
+          <h1 className="text-3xl font-bold text-white mb-4 md:mb-0">Seller Dashboard</h1>
+          
+          <Link 
+            to="/dashboard/add-product" 
+            className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-6 rounded-lg transition shadow-lg flex items-center gap-2"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+            </svg>
+            Add New Product
+          </Link>
+        </div>
 
+        {/* Existing Table Code */}
         {loading ? (
           <p>Loading orders...</p>
         ) : (
-          <div className="overflow-x-auto rounded-lg border border-slate-700 bg-slate-800">
-            <table className="min-w-full text-left text-sm text-slate-400">
+          <div className="overflow-x-auto rounded-lg border border-slate-700 bg-slate-800 shadow-xl">
+             {/* ... (Keep your existing <table> code exactly as it is) ... */}
+             <table className="min-w-full text-left text-sm text-slate-400">
               <thead className="bg-slate-900 text-xs uppercase text-slate-200">
                 <tr>
                   <th className="px-6 py-3">Order ID</th>
@@ -83,7 +100,6 @@ const OrderList = () => {
                     </td>
 
                     <td className="px-6 py-4">
-                      {/* Only show button if NOT delivered yet */}
                       {!order.isDelivered && (
                         <button 
                           onClick={() => deliverHandler(order._id)}

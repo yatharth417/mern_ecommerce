@@ -9,6 +9,7 @@ import Shipping from './pages/Shipping';
 import PlaceOrder from './pages/PlaceOrder';
 import MyOrders from './pages/MyOrders';
 import OrderList from './pages/OrdersList';
+import MyProducts from './pages/MyProducts'; 
 
 function App() {
   return (
@@ -36,6 +37,8 @@ function App() {
         <Route path='/myorders' element={<MyOrders/>}/>
 
         <Route path ='/admin/orderlist' element={<OrderList/>}/>
+
+        <Route path ='/dashboard/my-products' element={<MyProducts/>}/>
 
       </Routes>
     </div>

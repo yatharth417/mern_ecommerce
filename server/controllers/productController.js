@@ -59,8 +59,18 @@ const getProductById = async (req, res) => {
   }
 };
 
+// @desc    Get products added by specific seller
+// @route   GET /api/products/myproducts
+// @access  Private/Admin
+const getMyProducts = async (req, res) => {
+  // Find products where the 'user' field matches the logged-in user
+  const products = await Product.find({ user: req.user._id });
+  res.json(products);
+};
+
 module.exports = {
   getProducts,
   createProduct,
   getProductById,
+  getMyProducts,
 };
