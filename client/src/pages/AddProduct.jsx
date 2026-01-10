@@ -70,7 +70,7 @@ const AddProduct = () => {
             {/* Grid for Price & Stock */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-medium text-slate-400 mb-2">Price ($)</label>
+                <label className="block text-sm font-medium text-slate-400 mb-2">Price (Rs.)</label>
                 <input
                   type="number" name="price" required min="0"
                   className="w-full bg-slate-700 border border-slate-600 rounded p-2 focus:ring-indigo-500 focus:border-indigo-500"

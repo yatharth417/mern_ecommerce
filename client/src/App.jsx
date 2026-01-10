@@ -4,6 +4,11 @@ import Register from './pages/Register';
 import Home from './pages/Home';
 import AddProduct from './pages/AddProduct';
 import ProductDetails from './pages/ProductDetail';
+import Cart from './pages/Cart';
+import Shipping from './pages/Shipping';
+import PlaceOrder from './pages/PlaceOrder';
+import MyOrders from './pages/MyOrders';
+import OrderList from './pages/OrdersList';
 
 function App() {
   return (
@@ -21,6 +26,16 @@ function App() {
         <Route path="/register" element={<Register/>} />
 
         <Route path='/dashboard/add-product' element={<AddProduct/>} />
+
+        <Route path='/cart' element={<Cart/>}/>
+
+        <Route path='/checkout' element={<Shipping/>}/>
+
+        <Route path='/place-order' element={<PlaceOrder/>} />
+
+        <Route path='/myorders' element={<MyOrders/>}/>
+
+        <Route path ='/admin/orderlist' element={<OrderList/>}/>
 
       </Routes>
     </div>

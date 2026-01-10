@@ -4,12 +4,20 @@ const Product = require('../models/product');
 // @route   GET /api/products
 // @access  Public
 const getProducts = async (req, res) => {
-  try {
-    const products = await Product.find({});
-    res.json(products);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
+  // 1. Check if there is a 'keyword' query (e.g., ?keyword=iphone)
+  const keyword = req.query.keyword
+    ? {
+        name: {
+          $regex: req.query.keyword, // MongoDB Regex (partial matching)
+          $options: 'i',             // Case insensitive (iPhone = iphone)
+        },
+      }
+    : {};
+
+  // 2. Find products that match the keyword (or all if empty)
+  const products = await Product.find({ ...keyword });
+  
+  res.json(products);
 };
 
 // @desc    Create a product

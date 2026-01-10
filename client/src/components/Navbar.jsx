@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/authContext';
 import { CartProvider, useCart } from '../context/CartContext';
@@ -5,8 +6,18 @@ import toast from 'react-hot-toast';
 
 const Navbar = () => {
     const {user , logout} = useAuth();
+    const [keyword, setKeyword] = useState('');
     const {cartItems} = useCart();
     const navigate =useNavigate();
+
+    const submitHandler =(e) =>{
+        e.preventDefault();
+        if(keyword.trim()){
+            navigate(`/?keyword=${keyword}`);
+        }else{
+            navigate('/');
+        }
+    };
 
     const handleLogout = async () => {
         await logout();
@@ -25,11 +36,14 @@ const Navbar = () => {
 
                 {/*Search bar*/ }
                 <div className="hidden md:flex flex-1 mx-10 max-w-md">
-                    <input 
-                        type="text" 
-                        placeholder="Search products..." 
-                        className="w-full rounded-md border border-slate-600 bg-slate-800 px-4 py-2 text-sm text-white placeholder-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                    />
+                    <form onSubmit={submitHandler} className='flex-1 max-w-lg mx-8'>
+                        <input
+                            type='text'
+                            onChange={(e) => setKeyword(e.target.value)}
+                            placeholder='Search Products'
+                            className='w-full bg-slate-800 text-slate-300 rounded-lg px-4 py-2 border border-slate-700 focus:outline-none focus:border-indigo-500'
+                        />
+                    </form>
                 </div>
 
                 {/*Right side links*/}
@@ -39,11 +53,15 @@ const Navbar = () => {
                         <>
                             {/* show seller dashboard if user is company/admin */}
                             {user.role === 'admin'  && (
-                                <Link to="/dashboard" className="text-sm font-medium text-emerald-400 hover:text-emerald-300">
+                                <Link to="/admin/orderlist" className="text-sm font-medium text-emerald-400 hover:text-emerald-300">
                                     Seller Dashboard
                                 </Link>
                             )}
                             <span className='text-slate-300 text-sm'>Hi, {user.name}</span>
+
+                            <Link to="/myorders" className="text-sm font-medium text-slate-300 hover:text-white transition">
+                                My Orders
+                            </Link>
 
                             <button
                             onClick={handleLogout}

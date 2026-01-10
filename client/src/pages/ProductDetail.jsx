@@ -60,7 +60,7 @@ const ProductDetails = () => {
             <p className="text-slate-400 text-lg">Brand: <span className="text-indigo-400">{product.brand}</span></p>
             
             <div className="border-t border-b border-slate-700 py-4">
-              <p className="text-4xl font-bold text-white">${product.price}</p>
+              <p className="text-4xl font-bold text-white">Rs. {product.price}</p>
             </div>
 
             <p className="text-slate-300 leading-relaxed">

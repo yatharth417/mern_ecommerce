@@ -9,10 +9,22 @@ export const CartProvider = ({children}) => {
         return savedCart ? JSON.parse(savedCart) : [];
     });
 
+    // load shipping address from storage
+    const [shippingAddress, setShippingAddress] = useState(() => {
+        const savedAddress = localStorage.getItem('shippingAddress');
+        return savedAddress ? JSON.parse(savedAddress) : [];
+    });
+
     // save to local storage when cart is changed
-    useEffect (() => {
-        localStorage.getItem('cartItems', JSON.stringify(cartItems));
+    useEffect(() => {
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
     }, [cartItems]);
+
+    // save address to storage
+    useEffect(() => {
+        localStorage.setItem('shippingAddress', JSON.stringify(shippingAddress));
+    }, [shippingAddress]);
+
 
     // Add items 
     const addToCart = (product, qty = 1) => {
@@ -35,8 +47,26 @@ export const CartProvider = ({children}) => {
         setCartItems((prevItems) => prevItems.filter((x) => x._id !==id));
     };
 
+    // save shipping address function
+    const saveShippingAddress = (data) => {
+        setShippingAddress(data);
+    }
+
+    // clear cart items
+    const clearCart = () => {
+        setCartItems([]);
+    };
+
     return(
-        <CartContext.Provider value={{ cartItems, addToCart, removeFromCart }}>
+        <CartContext.Provider 
+        value={{ 
+            cartItems,
+            addToCart,
+            removeFromCart,
+            shippingAddress,
+            saveShippingAddress,
+            clearCart,
+             }}>
             {children}
         </CartContext.Provider>
     );

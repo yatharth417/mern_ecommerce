@@ -1,19 +1,25 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Navbar from '../components/Navbar';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const Home = () => {
   const [products, setProducts] = useState([]);
+  const location = useLocation();
+  // Extract `keyword` from query params (e.g., /?keyword=sony)
+  const keyword = new URLSearchParams(location.search).get('keyword') || '';
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const { data } = await axios.get('http://localhost:5000/api/products');
+      const endpoint = keyword
+        ? `http://localhost:5000/api/products?keyword=${encodeURIComponent(keyword)}`
+        : 'http://localhost:5000/api/products';
+      const { data } = await axios.get(endpoint);
       setProducts(data);
     };
 
     fetchProducts();
-  }, []);
+  }, [keyword]);
 
   return (
     <div className="min-h-screen bg-slate-900">
@@ -43,7 +49,7 @@ const Home = () => {
                 
                 <div className="mt-2 flex items-center justify-between">
                   <p className="text-slate-400 text-sm">{product.brand}</p>
-                  <p className="text-lg font-bold text-indigo-400">${product.price}</p>
+                  <p className="text-lg font-bold text-indigo-400">Rs. {product.price}</p>
                 </div>
               </div>
             </Link>
